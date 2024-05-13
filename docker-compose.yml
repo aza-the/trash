@@ -43,15 +43,15 @@ services:
     networks:
       - ollama-docker
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes: 
-      - ./certbot/conf:/etc/letsecnrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email azamatdzabaev310@gmail.com -d leetbot.ru --agree-tos
-    networks:
-      - ollama-docker
+  # certbot:
+  #   image: certbot/certbot
+  #   container_name: certbot
+  #   volumes: 
+  #     - ./certbot/conf:/etc/letsecnrypt
+  #     - ./certbot/www:/var/www/certbot
+  #   command: certonly --webroot -w /var/www/certbot --force-renewal --email azamatdzabaev310@gmail.com -d leetbot.ru --agree-tos
+  #   networks:
+  #     - ollama-docker
 
 networks:
   ollama-docker:
