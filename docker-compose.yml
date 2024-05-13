@@ -16,5 +16,16 @@ services:
     - api
     ports:
     - "80:80"
+    - "443:443"
     volumes:
     - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    - ./certbot/conf:/etc/letsencrypt
+    - ./certbot/www:/var/www/certbot
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes: 
+      - ./certbot/conf:/etc/letsecnrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email azamatdzabaev310@gmail.com -d boteblan.online --agree-tos
