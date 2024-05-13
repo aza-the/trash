@@ -30,5 +30,5 @@ def post_chat(chat_messages: list[ChatMessage]):
             }
         )
 
-    response = ollama_client.chat(model='llama3', messages=messages)
+    response = ollama_client.chat(model='dolphin-phi', messages=messages)
     return {'response': response['message']['content']}
