@@ -2,6 +2,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 from app.api.utils import templates
 from pydantic import BaseModel
+from app.utils.utils import ollama_client
 import ollama
 
 router = APIRouter()
@@ -29,5 +30,5 @@ def post_chat(chat_messages: list[ChatMessage]):
             }
         )
 
-    response = ollama.chat(model='llama3', messages=messages)
+    response = ollama_client.chat(model='llama3', messages=messages)
     return {'response': response['message']['content']}
