@@ -1,3 +1,5 @@
+let chat_history = []
+
 document.getElementById('send-btn').addEventListener('click', sendMessage);
 
 document.getElementById('message-input').addEventListener('keydown', function(event) {
@@ -25,7 +27,28 @@ function displayMessage(message) {
 }
 
 function sendToServer(message) {
-    setTimeout(() => { 
-        displayMessage('Сервер: Эхо "' + message + '"');
-    }, 500);
+    const user_chat_message = {
+        role: 'user',
+        content: message
+    };
+    chat_history.push(user_chat_message);
+
+    fetch(document.URL + "chat", {
+        method: "POST",
+        body: JSON.stringify(chat_history),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            const bot_chat_message = {
+                role: 'assistant',
+                content: json['response'] 
+            };
+            chat_history.push(bot_chat_message);
+            displayMessage(bot_chat_message.content);
+        });
+
+    console.log(chat_history)
 }
